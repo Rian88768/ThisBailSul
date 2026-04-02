@@ -35,11 +35,13 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          # Increment version and create a tag
-          npm version ${{ github.event.inputs.increment }} -m "chore: release v%s"
+          # Increment version without creating a git tag
+          npm version ${{ github.event.inputs.increment }} --no-git-tag-version
+          git add package.json
+          git commit -m "chore: release v$(node -p 'require("./package.json").version')"
           
-          # Push changes (including tags)
-          git push origin main --follow-tags
+          # Push changes without tags
+          git push origin main
           
           # Publish to npm
           npm publish --access public
