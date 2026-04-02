@@ -9,13 +9,13 @@ async function fetchLatestWaWebVersion() {
                 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
             }
         });
-        
+
         if (!response.ok) {
             throw new Error(`Failed to fetch sw.js: ${response.statusText}`);
         }
-        
+
         const data = await response.text();
-        const regex = /\\?"client_revision\\?":\s*(\d+)/;
+        const regex = /\"?client_revision\"?:\s*(\d+)/;
         const match = data.match(regex);
         if (!match || !match[1]) {
             throw new Error('Could not find client revision in sw.js');
@@ -32,15 +32,15 @@ function updateFile(filePath, regex, replacement) {
         const fullPath = join(__dirname, '..', filePath);
         const originalContent = readFileSync(fullPath, 'utf8');
         const updatedContent = originalContent.replace(regex, replacement);
-        
+
         if (originalContent !== updatedContent) {
             writeFileSync(fullPath, updatedContent);
             console.log(`✓ Updated ${filePath}`);
             return true;
-        } else {
-            console.warn(`! Could not find pattern in ${filePath}`);
-            return false;
         }
+
+        console.warn(`! Could not find pattern in ${filePath}`);
+        return false;
     } catch (error) {
         console.error(`✗ Failed to update ${filePath}:`, error.message);
         return false;
@@ -66,7 +66,7 @@ async function main() {
     console.log(`Latest version found: [${version.join(', ')}]`);
 
     const vStr = `[${version.join(', ')}]`;
-    
+
     updateJson('lib/Defaults/yebail-version.json', version);
     updateFile('lib/Defaults/index.js', /exports\.version\s*=\s*\[\d+,\s*\d+,\s*\d+\]/g, `exports.version = ${vStr}`);
 

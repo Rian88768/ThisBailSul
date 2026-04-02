@@ -102,29 +102,6 @@ connectToWhatsApp()
 | `useMultiFileAuthState` | Standard filesystem storage (best for local use) |
 | `useCustomAuthState` | Your own implementation (Redis, MongoDB, etc.) |
 
-## Features
-
-**@yemo-dev/yebail** includes a wide range of features for interacting with the WhatsApp API:
-
-### 🚀 Core Connectivity
-- **QR Code & Pairing Code**: Connect via QR or an 8-character pairing code.
-- **LID Mapping**: Full support for identity-based identifiers.
-- **Session Persistence**: Built-in support for multi-file and custom authentication states.
-
-### ✉️ Advanced Messaging
-- **Status Mentions**: Mention users in status updates to trigger private notifications.
-- **Album Messages**: Send multiple images/videos in a single grouped message.
-- **Interactive Messages**: Full support for Buttons, Lists, and Native Flows.
-- **Polls**: Create and track polls, with built-in vote aggregation.
-- **32-Char Hex IDs**: Modern ID generation for better database indexing.
-- **Batch Contact Lookup**: Check multiple WhatsApp IDs in one call.
-- **Account Restriction Check**: Inspect reachout timelock and message cap state.
-
-### 📁 Media & Utilities
-- **Media Handling**: Efficient streaming for image, video, audio, and documents.
-- **Audio Transcoding**: Optional helper to convert audio before sending.
-- **Link Previews**: Automatic metadata generation for shared links.
-
 ## Detailed Examples
 
 For a full list of code snippets covering everything from group management to newsletter actions, please refer to:
